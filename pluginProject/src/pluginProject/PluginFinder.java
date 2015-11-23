@@ -1,13 +1,14 @@
 package pluginProject;
 
 import java.io.File;
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PluginFinder {
 	
 	protected String directory; // directory where the finder search plugin
-	protected PluginFilter filter = new PluginFilter () ;
+	protected PluginFilter filter = new PluginFilter (".class") ;
 	
 	/**
 	 * create a plugin finder to search in the directory past in parameter
