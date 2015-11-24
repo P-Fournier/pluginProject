@@ -20,7 +20,7 @@ public class Frame extends JFrame {
 		this.textArea = new JTextArea();
 		this.menuBar = new JMenuBar();
 		FileMenu fileMenu = new FileMenu();
-		ToolsMenu toolsMenu = new ToolsMenu();
+		ToolsMenu toolsMenu = new ToolsMenu(this.textArea);
 		
 		menuBar.add(fileMenu);
 		menuBar.add(toolsMenu);
