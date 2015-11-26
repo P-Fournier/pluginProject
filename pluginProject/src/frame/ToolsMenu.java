@@ -1,6 +1,7 @@
 package frame;
 
 import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
 
 import plugin.Plugin;
@@ -16,11 +17,14 @@ public class ToolsMenu extends JMenu {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private JTextArea textArea;
+	protected JTextArea textArea;
 	
 	public ToolsMenu(JTextArea textArea){
 		super("Tools");
 		this.textArea=textArea;
+		JMenuItem plug = new JMenuItem("toLowerCase");
+
+		this.add(plug);
 	}
 	
 	public void transformTextArea(Plugin plugin){

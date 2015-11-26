@@ -11,19 +11,28 @@ public class Frame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private JTextArea textArea;
+	private JTextArea textArea = new JTextArea();
 
-	private JMenuBar menuBar;
+	private JMenuBar menuBar = new JMenuBar();
+	
 	
 	public Frame(){
-		super();
-		this.textArea = new JTextArea();
-		this.menuBar = new JMenuBar();
+		this.setTitle("pluginProject");
+		this.setSize(400,300);
+		this.setDefaultCloseOperation(Frame.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		
+	
 		FileMenu fileMenu = new FileMenu();
 		ToolsMenu toolsMenu = new ToolsMenu(this.textArea);
 		
-		menuBar.add(fileMenu);
-		menuBar.add(toolsMenu);
+		
+		this.menuBar.add(fileMenu);
+		this.menuBar.add(toolsMenu);
+		this.setJMenuBar(menuBar);
+		this.add(textArea);
+		
+		this.setVisible(true);
 	}
 
 	
