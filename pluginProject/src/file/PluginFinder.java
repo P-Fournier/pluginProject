@@ -29,7 +29,7 @@ public class PluginFinder implements ActionListener {
 	 * return all the files in the directory
 	 * @return all the directory's files
 	 */
-	public List<File> getAllFiles(){
+	public ArrayList<File> getAllFiles(){
 		File dir = new File (this.directory);
 		File[] files = dir.listFiles(filter);
 		if (files == null || files.length==0){
@@ -46,6 +46,8 @@ public class PluginFinder implements ActionListener {
 		}
 		
 	}
+	
+	
 
 	private void notify(List<File> allFiles) {
 		// TODO Auto-generated method stub
