@@ -4,7 +4,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
 
-import plugin.Plugin;
+import plugins.Plugin;
 
 /*
  * Onglet TOOLS de la frame, avec la liste des plugins
