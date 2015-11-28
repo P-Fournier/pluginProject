@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import plugins.Plugin;
+
 public class PluginFinder implements ActionListener {
 	
 	protected ExtendedTimer finderListener;
@@ -47,7 +49,12 @@ public class PluginFinder implements ActionListener {
 		
 	}
 	
-	
+	public ArrayList<Plugin> castFileToPlugin(ArrayList<File> files){
+		ArrayList<Plugin> plugs = new ArrayList<Plugin>();
+		
+		
+		return plugs;
+	}
 
 	private void notify(List<File> allFiles) {
 		// TODO Auto-generated method stub

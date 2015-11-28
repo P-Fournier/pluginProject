@@ -6,6 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import actions.OpenFile;
+import actions.SaveFile;
+
 public class FileMenu extends JMenu {
 
 	/**
@@ -13,12 +16,13 @@ public class FileMenu extends JMenu {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public FileMenu (){
+	public FileMenu (Frame frame){
 		super("File");
 		JMenuItem open = new JMenuItem("Open");
 		JMenuItem save = new JMenuItem("Save");
-		JMenuItem saveAs = new JMenuItem("Save as");
 		JMenuItem exit = new JMenuItem("Exit");
+		save.addActionListener(new SaveFile(frame));
+		open.addActionListener(new OpenFile(frame));
 		exit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
 				System.exit(0);
@@ -29,7 +33,6 @@ public class FileMenu extends JMenu {
 		this.add(open);
 		this.addSeparator();
 		this.add(save);
-		this.add(saveAs);
 		this.addSeparator();
 		this.add(exit);
 		

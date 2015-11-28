@@ -2,6 +2,7 @@ package frame;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 public class Frame extends JFrame {
@@ -11,7 +12,7 @@ public class Frame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private JTextArea textArea = new JTextArea();
+	protected JTextArea textArea = new JTextArea();
 
 	private JMenuBar menuBar = new JMenuBar();
 	
@@ -22,15 +23,16 @@ public class Frame extends JFrame {
 		this.setDefaultCloseOperation(Frame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 		
+		JScrollPane scrollPan = new JScrollPane(this.textArea);
 	
-		FileMenu fileMenu = new FileMenu();
+		FileMenu fileMenu = new FileMenu(this);
 		ToolsMenu toolsMenu = new ToolsMenu(this.textArea);
 		
 		
 		this.menuBar.add(fileMenu);
 		this.menuBar.add(toolsMenu);
 		this.setJMenuBar(menuBar);
-		this.add(textArea);
+		this.add(scrollPan);
 		
 		this.setVisible(true);
 	}
