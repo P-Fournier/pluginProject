@@ -1,7 +1,10 @@
 package plugins;
 
 public class ToUpperCase implements Plugin {
-
+	
+	public ToUpperCase(){
+		
+	}
 	@Override
 	public String transform(String s) {
 		return s.toUpperCase();

@@ -2,12 +2,10 @@ package file;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.lang.reflect.Constructor;
 
-import plugins.Plugin;
+import plugins.*;
 
-/*
- * le but de cette classe ca va etre de vérifier que les fichiers trouvés sont des plugins
- */
 public class PluginFilter implements FilenameFilter {
 	
 	//protected String extension; //extension the filter will accept, in our case ".class"(?)
@@ -19,41 +17,56 @@ public class PluginFilter implements FilenameFilter {
 	public PluginFilter(/*String extension*/){
 		//this.extension = extension;
 		//this.conformFiles = new ArrayList<File>();
-	}
+		 	}
 	
 	//A VERIFIER SI J'AI BIEN COMPRIS L'UTILITE DE CETTE CLASSE
 	@Override
 	public boolean accept(File dir, String name) {
-		
+		System.out.println(name);
 		if( name.endsWith(".class")){
-			try{
-				Class<?> theClass = Class.forName(name.replaceFirst("\\.class$",""));
-				// on test si la class implémente plugin
-				if (!Plugin.class.isAssignableFrom(theClass)){
-					return false;
-				}
-				// on test si la class appartient au package plugins
-				if (!theClass.getPackage().getImplementationTitle().equals("plugins")){
-					return false;
-				}
-				// on test si la class a un constructeur vide 
-				if (theClass.getConstructors().length==0){
-					return false;
-				}
-			}catch(ClassNotFoundException e){
-				return false ;
+			Class<?> theClass = this.getClass(name);
+			if (theClass==null){
+				return false;
 			}
+			// on test si la class implémente plugin
+			if (!Plugin.class.isAssignableFrom(theClass)){
+				System.out.println("implements");
+				return false;
+			}
+			// on test si la class appartient au package plugins
+			if (!theClass.getPackage().getName().equals("plugins")){
+				System.out.println("package");
+				return false;
+			}
+			// on test si la class a un constructeur vide 
+			if (!hadAnEmptyConstructor(theClass)){
+				System.out.println("constructeur");
+				return false;
+			}
+			System.out.println("ok");
 			return true;
 		}
 		return false;
 	}
 	
-	/*public void addFile(File file){
-		File dir = new File(".");
-		if (this.accept(dir, file.getName())) {
-			this.conformFiles.add(file);
+	public Class<?> getClass(String name){
+		try {
+			return Class.forName("plugins".replaceFirst("\\.class$", ""));
+			
+		} catch (ClassNotFoundException e) {
+			return null;
 		}
-	}*/
+	}
+	
+	public boolean hadAnEmptyConstructor(Class<?> theClass){
+		Constructor<?>[] constructors = theClass.getConstructors();
+		for (int i=0 ; i<constructors.length ;i++){
+			if (constructors[i].getParameterTypes().length==0){
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 

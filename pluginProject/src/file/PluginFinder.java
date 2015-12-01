@@ -7,12 +7,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import plugins.Plugin;
+
 public class PluginFinder implements ActionListener {
 	
-	protected ExtendedTimer finderListener ;
+	protected ExtendedTimer finderListener;
 	protected String directory; // directory where the finder search plugin
 	protected PluginFilter filter = new PluginFilter (/*".class"*/) ;
-	protected List<File> plugins ;
+	protected List<File> plugins;
 	
 	/**
 	 * create a plugin finder to search in the directory past in parameter
@@ -22,40 +24,57 @@ public class PluginFinder implements ActionListener {
 		this.directory=directory;
 		this.plugins = new ArrayList<File>();
 		this.finderListener = new ExtendedTimer(this);
-		// je suis pas sur mais c'est l'endroit qui me parait le plus juste 
-		// pour lancer le timer pour ca je laisse en commentaire
-		//finderListener.start();
+		finderListener.start();
 	}
 	
 	/**
 	 * return all the files in the directory
 	 * @return all the directory's files
 	 */
-	public List<File> getAllFiles(){
+	public ArrayList<File> getAllFiles(){
 		File dir = new File (this.directory);
+		System.out.println(dir);
 		File[] files = dir.listFiles(filter);
 		if (files == null || files.length==0){
+			System.out.println("0");
 			return new ArrayList<File> ();
 		}
 		return new ArrayList<File>(Arrays.asList(files));
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent event) {
+	public void actionPerformed(ActionEvent e) {
 		List<File> allFiles = this.getAllFiles();
 		if(!(this.plugins.equals(allFiles))){
 			this.notify(allFiles);
-		}	
+		}
+		
+	}
+	
+	/*public String getClassName(File f){
+		
+	}*/
+	
+	public ArrayList<Plugin> castFileToPlugin(ArrayList<File> files){
+		ArrayList<Plugin> plugs = new ArrayList<Plugin>();
+		for( File f : files){
+			Class<?>theClass = filter.getClass(f.getName());
+			if (theClass == null){
+				
+			}else{
+				try{
+					plugs.add((Plugin)theClass.newInstance());
+				}catch(IllegalAccessException | InstantiationException e){
+					System.out.println("this file isn't a plugin");
+				}
+			}
+			
+		}
+		return plugs;
 	}
 
 	private void notify(List<File> allFiles) {
-		// TODO Auto-generated method stub
-		/*
-		 * je ne sais pas trop se que cette méthode est sensé faire
-		 * je pense qu'elle envoie les plugins trouver au framework
-		 * du coup il faudra surement ajouter le framework aux paramètres de 
-		 * cette class
-		 */
+		
 		
 	}
 }
