@@ -13,8 +13,8 @@ public class Frame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	protected JTextArea textArea = new JTextArea();
-
 	private JMenuBar menuBar = new JMenuBar();
+	private ToolsMenu toolsMenu;
 	
 	
 	public Frame(){
@@ -26,11 +26,11 @@ public class Frame extends JFrame {
 		JScrollPane scrollPan = new JScrollPane(this.textArea);
 	
 		FileMenu fileMenu = new FileMenu(this);
-		ToolsMenu toolsMenu = new ToolsMenu(this.textArea);
+		setToolsMenu(new ToolsMenu(this.textArea));
 		
 		
 		this.menuBar.add(fileMenu);
-		this.menuBar.add(toolsMenu);
+		this.menuBar.add(getToolsMenu());
 		this.setJMenuBar(menuBar);
 		this.add(scrollPan);
 		
@@ -59,6 +59,18 @@ public class Frame extends JFrame {
 
 	public void setMenuBar(JMenuBar menuBar) {
 		this.menuBar = menuBar;
+	}
+
+
+
+	public ToolsMenu getToolsMenu() {
+		return toolsMenu;
+	}
+
+
+
+	public void setToolsMenu(ToolsMenu toolsMenu) {
+		this.toolsMenu = toolsMenu;
 	}
 
 
